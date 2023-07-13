@@ -3,6 +3,17 @@ import chalk from 'chalk';
 //FS é uma lib nativa do node.js, que permite acessar outros arq.
 import fs from 'fs'
 
+const textoTeste = 'São geralmente recuperados a partir de um objeto [FileList](https://developer.mozilla.org/pt-BR/docs/Web/API/FileList) que é retornado como resultado da seleção, pelo usuário, de arquivos através do elemento [<input>](https://developer.mozilla.org/pt-BR/docs/Web/HTML/Element/Input), a partir do objeto [DataTransfer](https://developer.mozilla.org/pt-BR/docs/Web/API/DataTransfer) utilizado em operações de arrastar e soltar, ou a partir da API `mozGetAsFile()` em um [HTMLCanvasElement](https://developer.mozilla.org/pt-BR/docs/Web/API/HTMLCanvasElement). Em Gecko, códigos com privilégiios podem criar objetos File representando qualquer arquivo local sem a intereção do usuário (veja [Implementation notes](https://developer.mozilla.org/pt-BR/docs/Web/API/File#implementation_notes) para mais informações.).'
+
+function ExtraiLinks(texto){
+    //Expressão regular
+    const regex = /\[([^[\]]*?)\]\((https?:\/\/[^\s?#.].[^\s]*)\)/gm;
+    const capturas = regex.exec(texto);
+    console.log(chalk.green(capturas));
+}
+
+ExtraiLinks(textoTeste)
+
 function TrataErro(erro){
     console.log(erro)
     //irá lançar o erro no terminal para ser tratado
@@ -31,8 +42,11 @@ async function PegaArquivo(caminhoArq){
 }
 
 
-// promises com then()
+// ./ pega apartir do diretório que estamos trabalhando
+//PegaArquivo("./arquivos/texto.md")
 
+
+// promises com then()
 // function PegaArquivo(caminhoArq){
 //     const enconding = 'utf-8'
 //     //promises = código assícrono. Ele promete que irá fazer
@@ -43,8 +57,7 @@ async function PegaArquivo(caminhoArq){
 //         .catch(TrataErro)
 // }
 
-
-
-// ./ pega apartir do diretório que estamos trabalhando
-PegaArquivo("./arquivos/texto.md")
-PegaArquivo("./arquivos/")
+// Expressões regulares
+// \[[^[\]]*?\]
+// \(https?:\/\/[^\s?#.].[^\s]*\)
+// \[([^[\]]*?)\]\((https?:\/\/[^\s?#.].[^\s]*)\)
