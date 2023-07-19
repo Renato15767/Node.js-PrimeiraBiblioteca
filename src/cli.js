@@ -1,4 +1,5 @@
 import chalk from "chalk"
+import fs, { lstatSync } from 'fs'
 // Recebe a função de outro arq.
 import PegaArquivo from "./index.js"
 
@@ -7,9 +8,15 @@ import PegaArquivo from "./index.js"
 const caminho = process.argv
 
 //Função precisa ser assícrona, por conta da outra
-async function ProcessaArquivo(caminho){
-    const resultado = await PegaArquivo(caminho[2])
-    console.log(chalk.yellow('Lista de Links'), resultado)
+async function ProcessaArquivo(argumentos){
+    const caminho = argumentos[2]
+
+    // Verifica se o caminho é de um arquivo
+    if(lstatSync(caminho).isFile()){
+        const resultado = await PegaArquivo(argumentos[2])
+        console.log(chalk.yellow('Lista de Links'), resultado)
+    }
+
 }
 
 ProcessaArquivo(caminho)
