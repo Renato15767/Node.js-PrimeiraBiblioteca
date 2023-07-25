@@ -9,12 +9,13 @@ import ListaValidada from "./http-validacao.js"
 // na linha de comando para dentro do programa
 const caminho = process.argv
 
-function ImprimiLista(valida, resultado, nomeArquivo = ''){
+// É assícrona pq precisa esperar o resulta no http-valida.js
+async function ImprimiLista(valida, resultado, nomeArquivo = ''){
     // Mostra a lista de links validada
     if(valida){
         console.log(chalk.yellow('Lista validada'),
         chalk.black.bgBlue(nomeArquivo),
-        ListaValidada(resultado))
+        await ListaValidada(resultado))
     }else{
         //Mostra somente a lista de links
         console.log(chalk.yellow('Lista de Links'),
@@ -29,7 +30,7 @@ function ImprimiLista(valida, resultado, nomeArquivo = ''){
 async function ProcessaArquivo(argumentos){
     // Pega a 3ª posição do terminal
     const caminho = argumentos[2]
-    // Se tiver '--valida' ele guarda normal, se não ele guarda False
+    // Se tiver '--valida' ele guarda True, se não ele guarda False
     const valida = argumentos[3] === '--valida'
 
     try{

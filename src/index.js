@@ -11,7 +11,6 @@ function ExtraiLinks(texto){
     //matchAll(): ele retorna um iterável. Combina todas as referências encontradas
     const capturas = [...texto.matchAll(regex)];
     //map(): Percorre o array e retorna outro com o resu que queremos
-    //
     const resultados = capturas.map(captura => ({[captura[1]]: captura[2]}))
     return resultados.length !== 0 ? resultados : 'Não há links no arquivo'
 }
